@@ -67,9 +67,9 @@ void setup() {
         //Serial.println(F("SSD1306 allocation failed"));
       for(;;); // Don't proceed, loop forever
     }
-    //noInterrupts()
-     //drawTRDLogo();
-     //interrupts();
+    noInterrupts()
+     drawTRDLogo();
+     interrupts();
   drawNotConnected();
 }
 
@@ -87,10 +87,11 @@ void loop() {
 
 void drawTRDLogo(void) {
   display.clearDisplay();
+  display.setRotation(2);
   display.drawBitmap(
-    (display.width() - LOGO_WIDTH ) / 2,
-    (display.height() - LOGO_HEIGHT) / 2,
-    bitmap_logo, LOGO_WIDTH, LOGO_HEIGHT, 1);
+    0,
+    0,
+    trd_logo, 128, 64, WHITE);
   display.display();
-  delay(5000);
+  delay(1000);
 }
