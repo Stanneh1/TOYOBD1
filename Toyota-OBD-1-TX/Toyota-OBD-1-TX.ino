@@ -17,6 +17,7 @@
 #include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
+#include "logo.h"
 
 int i = 0;
 
@@ -533,12 +534,11 @@ void setup() {
       //Serial.println(F("SSD1306 allocation failed"));
       for(;;); // Don't proceed, loop forever
     }
-      // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-  display.setRotation(2);
-  display.display();
-  delay(2000); // Pause for 2 seconds
-  display.clearDisplay();
+      // Show TRD Boot Logo.
+      display.setRotation(2);
+      noInterrupts()
+      drawTRDLogo();
+      interrupts();
 
 
   // Init Serial Monitor
@@ -647,4 +647,15 @@ void loop(void) {
 //  Serial.println(touchVal);
 //}
 
+}
+
+void drawTRDLogo(void) {
+  display.clearDisplay();
+  display.setRotation(2);
+  display.drawBitmap(
+    0,
+    0,
+    trd_logo, 128, 64, WHITE);
+  display.display();
+  delay(1000);
 }
